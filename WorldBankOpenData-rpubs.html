@@ -7763,7 +7763,7 @@ hljs.initHighlightingOnLoad();
    
   
 
-<style>.small-code pre code {  font-size: 1em;}.footer {    color: black; background: #E8E8E8;    position: fixed; top: 90%;    text-align:left; width:100%;}</style>
+<style>.small-code pre code {  font-size: small;}</style>
 
 
 
@@ -7809,7 +7809,7 @@ If necessary you can download raw data and make analyses with your needs.<br/>
 <section data-transition="concave" data-transition-speed="slow">
 <h3>Diagram example</h3>
 <div class="column column1 slideContent small-code" >
-<h2>Example code for loading data</h2>
+<p><span style="font-size:xx-large; font-weight:bold; color:green;">Example code for loading data</span></p>
 
 <pre><code class="r">library(WDI)
 dat = WDI::WDI(indicator=&#39;NY.GDP.PCAP.KD&#39;, 
@@ -7817,7 +7817,8 @@ dat = WDI::WDI(indicator=&#39;NY.GDP.PCAP.KD&#39;,
                start=1960, end=2012)
 </code></pre>
 
-<h2>Building plot with loaded data</h2>
+<p><br>
+<span style="font-size:xx-large; font-weight:bold; color:green;">Building plot with loaded data</span></p>
 
 <pre><code class="r">library(ggplot2)
 p &lt;- ggplot(dat, aes(year, 
@@ -7847,7 +7848,7 @@ p &lt;- ggplot(dat, aes(year,
 <pre><code class="r">kable(head(dat,10))
 </code></pre>
 
-<p><span style="font-weight:bold; color:green;">
+<p><span style="font-size:x-large; font-weight:bold; color:green;">
     <br>
     On this tab it&#39;s possible to download raw data.<br/>
 </span></p>
@@ -7934,13 +7935,7 @@ p &lt;- ggplot(dat, aes(year,
 <section data-transition="concave" data-transition-speed="slow">
 <h3>Some thoughts</h3>
 <div class="column column1 slideContent small-code" >
-<div class="footer" style="margin-top:-100px;font-size:80%;">
-When I begun build my application have been available only WDI package.  <br>
-By the end april have announced package wbstats, it is similar by functionality, but more wide cover sources and have additional options. <br>
-I haven&rsquo;t enough time to rebuild application and I just cover a difference between this package.
-</div>
-
-<p><a href="https://cran.r-project.org/web/packages/WDI/index.html">WDI</a> package  </p>
+<p><span style="font-size:xx-large; font-weight:bold; "><a href="https://cran.r-project.org/web/packages/WDI/index.html">WDI</a> package</span>  </p>
 
 <pre><code class="r">str(WDI::WDIcache())
 </code></pre>
@@ -7956,11 +7951,16 @@ I haven&rsquo;t enough time to rebuild application and I just cover a difference
   .. ..$ : chr [1:9] &quot;iso3c&quot; &quot;iso2c&quot; &quot;country&quot; &quot;region&quot; ...
 </code></pre>
 
-<p>Advantages:</p>
+<p><span style="font-size:x-large; font-weight:bold; ">Advantages:</span></p>
 
 <ul>
-<li>Every indicator placed in separate column</li>
+<li><span style="font-size:x-large; ">Every indicator placed in separate column</span></li>
 </ul>
+
+<p><span style="font-size:large; color:teal;line-height:50%";>
+When the application builded only WDI package have been available. By the end april have announced package wbstats. It is similar by functionality but have additional options. <br>
+I haven&#39;t enough time to rebuild application and I just cover a difference between this package.
+</span></p>
 
 
 </div>
@@ -7968,7 +7968,7 @@ I haven&rsquo;t enough time to rebuild application and I just cover a difference
 <div class="column column2 slideContent small-code" >
 
 
-<p>Package <a href="https://cran.r-project.org/package=wbstats">wbstats</a></p>
+<p><span style="font-size:xx-large; font-weight:bold; ">Package <a href="https://cran.r-project.org/package=wbstats">wbstats</a></span></p>
 
 <pre><code class="r">str(wbstats::wb_cachelist, max.level = 1)
 </code></pre>
@@ -7983,13 +7983,13 @@ I haven&rsquo;t enough time to rebuild application and I just cover a difference
  $ lending    :&#39;data.frame&#39;:    4 obs. of  2 variables:
 </code></pre>
 
-<p>Advantages:</p>
+<p><span style="font-size:x-large; font-weight:bold; ">Advantages:</span></p>
 
 <ul>
-<li>More indicators available</li>
-<li>Support for Most Recent Value queries</li>
-<li>Support for grep style searching for data descriptions and names</li>
-<li>Support for searching and downloading data in multiple languages</li>
+<li><span style="font-size:x-large; ">More indicators available</span></li>
+<li><span style="font-size:x-large; ">Support for Most Recent Value queries</span></li>
+<li><span style="font-size:x-large; ">Support for grep style searching for data descriptions and names</span></li>
+<li><span style="font-size:x-large; ">Support for searching and downloading data in multiple languages</span></li>
 </ul>
 
 </div>

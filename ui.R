@@ -5,9 +5,11 @@
 #
 # http://shiny.rstudio.com
 #
+#
 
 library(shiny)
 library(WDI)
+library(plotly)
 
 shinyUI(navbarPage(theme = "bootstrap.css",
     "World Bank Open Data",
@@ -28,7 +30,7 @@ shinyUI(navbarPage(theme = "bootstrap.css",
                         'From',
                         2000,
                         min = 1960,
-                        max = 2014,
+                        max = 2020,
                         width = "100px"
                     )
                 ),
@@ -37,13 +39,13 @@ shinyUI(navbarPage(theme = "bootstrap.css",
                     numericInput(
                         'id2',
                         'To',
-                        2014,
-                        min = 1960,
-                        max = 2014,
+                        2021,
+                        min = 1961,
+                        max = 2022,
                         width = "100px"
                     )
                 )),
-                helpText("Inputting any Years between 1960 and 2014."),
+                helpText("Inputting any Years between 1960 and 2021."),
                 br(),
                 selectizeInput(
                     "country",
@@ -66,13 +68,14 @@ shinyUI(navbarPage(theme = "bootstrap.css",
                 br(),
                 actionButton("goButton", "Go!"),
                 helpText(
-                    "Click the button to visualize or update the diagram that displays in the main panel."
+                    "Click the button to obtain data and visualize it on the plot."
                 )
                 ),
             
             # Show a plot of the generated distribution
             mainPanel(h3("Visualize selected data"),
-                      plotOutput("distPlot"),
+                      # plotOutput("distPlot"),
+                      plotlyOutput("distPlot", height = "680px"),
                       hr())
             )
         ),
@@ -92,16 +95,15 @@ shinyUI(navbarPage(theme = "bootstrap.css",
                      "World Bank provide open data about development in countries around the globe."
                  ),
                  p(
-                     "This data include information about 215 country and 49 regions,
-                     and 148 indicators that measured by year from 1960 year."
+                     "This data include information more than 200 country,
+                     and 540 indicators that measured by year from 1960 year."
                  ),
                  a(href = "http://data.worldbank.org/",
-                   "Source link")
+                   "Source link to World Bank Open Data")
                  ),
              hr(),
              tags$body(
                  h3('Instructions'),
-                 p('In this application used only data about 215 country, and 49 regions excluded.'),
                  p('This application provide simple interface to select up to 5 country and 1 indicator
                     that you want to analysis. Also you can change years to observed data.'),
                  p('When you select all parameters please press button <Go!>. After that data 
