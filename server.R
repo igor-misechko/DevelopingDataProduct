@@ -1,15 +1,12 @@
 
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 library(shiny)
 library(WDI)
 library(ggplot2)
+library(plotly)
+library(dplyr)
 
-tt <- WDIcache()
+# tt <- WDIcache()
+tt <- readRDS(file = "tt.rds")
 tt2 <- as.data.frame(tt$country, stringsAsFactors = FALSE)
 tt2 <- dplyr::filter(tt2, region != "Aggregates")
 tt2 <- cbind(tt2, value = seq_len(nrow(tt2)))
@@ -25,29 +22,35 @@ shinyServer(function(input, output, session) {
     
     
     updateSelectizeInput(session, "indicator", label = "Select Indicator to view:", choices = (ind2$name),
-                         selected = NULL, options = list(), server = T)
+                         selected = "GDP (current US$)", options = list(), server = T)
     
     datasetInput <- eventReactive(input$goButton, {
-        WDI(indicator=indicatorFUN(as.character(input$indicator)),
-             country=iso(as.character(input$country)),
-             start=input$id1,
-             end=input$id2)
+        WDI(indicator = c("Value" = indicatorFUN(as.character(input$indicator))),
+             country = iso(as.character(input$country)),
+             start = input$id1,
+             end = input$id2)
     })
     
     datasetInput2 <- reactive({
-        setNames(datasetInput(), c("iso2c", "Country", "Value", "Year"))
+        datasetInput() %>% rename("Country" = "country", 'Year' = 'year')
     })
     
     datasetInput3 <- reactive({
-        dplyr::select(datasetInput2(), Country, Value, Year)
+        select(datasetInput2(), Country, Value, Year)
     })
 
     
-  output$distPlot <- renderPlot({
-    ggplot(datasetInput2(), aes(x = Year, y = Value, color=Country)) + geom_line() +
-          labs(title = input$indicator) + scale_x_continuous('Year', breaks = seq(input$id1,input$id2)) 
-          
-  })
+  # output$distPlot <- renderPlot({
+  #   ggplot(datasetInput2(), aes(x = Year, y = Value, color=Country)) + geom_line() +
+  #         labs(title = input$indicator) + scale_x_continuous('Year', breaks = seq(input$id1,input$id2)) 
+  #         
+  # })
+    output$distPlot <- renderPlotly({
+        p <- ggplot(datasetInput2(), aes(x = Year, y = Value, color=Country)) + geom_line() +
+            labs(title = input$indicator) + 
+            scale_x_continuous('Year', breaks = seq(input$id1, input$id2)) 
+        return(ggplotly(p) %>% rangeslider(input$id1, input$id2)) #)
+    })
   
   
   # show raw data
